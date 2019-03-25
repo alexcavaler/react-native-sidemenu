@@ -6,29 +6,55 @@ import Profile from "../Profile/Profile";
 import MyInformation from '../MyInformation/MyInformation';
 import ListScreen from "../List/List";
 import LocationScreen from "../Location/Location";
+/*
+import MapScreen from "./MapScreen";
+
+
+import ListScreen from "../ListScreen/index.js";
+import HelpScreen from "../HelpScreen/index.js";
+import MapList from "../Map/index.js";
+import SignInScreen from '../Signin/index.js'
 import Notification from '../Notification/index.js'
+import WishList from '../WishList/index.js'
+import FAQ from '../FAQ/index.js'
+import FAQGeneralEnquiries from '../FAQGeneralEnquiries/index.js'
+import AboutUs from "../AboutUs/index";
+import PrivacyPolicy from "../PrivacyPolicy/index";
+*/
 
-const StackNavigation = createStackNavigator( {
-  Home: { screen: Home },
-  Profile: { screen: Profile },
-  MyInformation: { screen: MyInformation },
-  ListScreen: { screen: ListScreen },
-  LocationScreen: { screen: LocationScreen },
-  Notification: { screen: Notification },
-}, {
-  initialRouteName: 'Home',
-})
-
-const DrawerNav = createDrawerNavigator(
+const RootStack = createStackNavigator(
   {
-    SideBar: { screen: SideBar },
-  })
+    Home: { screen: Home },
+    Profile: { screen: Profile },
+    MyInformation: { screen: MyInformation },
+    ListScreen: { screen: ListScreen },
+    LocationScreen: { screen: LocationScreen }
+  },{
+    initialRouteName: 'Home',
+  }
+);
+const SideBarScreenRouter = createDrawerNavigator(
+  {
+    Home: { screen: Home },
+    Profile: { screen: Profile },
+    MyInformation: { screen: MyInformation },
+    ListScreen: { screen: ListScreen },
+    LocationScreen: { screen: LocationScreen }
+  },{
+    initialRouteName: 'Home',
+  },
+  {
+    contentComponent: props => <SideBar {...props} />
+  }
+);
 
-const MainNavigation = createSwitchNavigator({
-  Stack: StackNavigation, // You will use this.props.navigation.replace('HomeDrawer') after login process.
-  Drawer: DrawerNav,
+const  Main = createSwitchNavigator({
+  HomeScreenRouter: RootStack,
+  SideBarScreenRouter: SideBarScreenRouter, 
+},{
+  initialRouteName: 'HomeScreenRouter',
 })
 
-const AppContainer = createAppContainer(MainNavigation);
+const AppContainer = createAppContainer(Main);
 
 export default AppContainer;
