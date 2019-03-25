@@ -29,7 +29,7 @@ class Footer extends React.Component {
               vertical
               onPress={() => 
                 {
-                  this.props.navigation.dispatch(DrawerActions.openDrawer());
+                    this.props.navigation.openDrawer()
                 }
                 
               }
